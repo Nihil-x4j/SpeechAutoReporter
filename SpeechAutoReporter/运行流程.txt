@@ -1,0 +1,33 @@
+1. 先创建一个单独的python环境
+conda create -n new_env python=3.10 # -n后面的是环境名字，可以自己换
+conda activate new_env
+pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple 使用清华源加速
+cd ./SpeechAutoReporter
+
+2. 安装必要的库
+pip install gradio # 前端可视化库，一键启动，很方便
+pip install llama-index # llamaindex核心库，用于构建rag应用，但是目前感觉做agent能力比较弱，可以考虑换langchain
+pip install chromadb # 开源的向量数据库，好处在于支持增量添加和修改
+pip install llama-index-embeddings-huggingface # embedding库，用于导入huggingface格式的embedding模型
+pip install opencc # 用于繁体转简体
+pip install soundfile # 用于音频文件处理
+pip install opencv-python  # 用于图像处理
+
+3. 运行自动报告系统
+python app.py
+
+4. 目录结构
+RAG/
+├── chroma_db/               # 知识向量库保存位置
+│   ├── ...                     # chroma内置文件结构
+│   └── doc_records.json     # 知识内容
+├── models/              # 各种模型文件
+│   ├── bge-m3/      # 嵌入模型
+│   └── openai/     # whisper模型
+├── SpeechAutoReporter/       # 自动化报告系统
+│   ├── app.py          # 程序网页可视化入口
+│   ├── llm.py          # 对话模型封装脚本
+│   ├── templates/           # 病例模板路径
+│   └── rag_eval.py         # RAG性能评估脚本
+├── user_uploaded_images/      # 上传图片路径
+└── download_models.py    # 模型下载脚本
